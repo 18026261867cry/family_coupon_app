@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">🎯 券审核中心</h2>
+
+  {% if pending_coupons %}
+    <table class="table table-bordered table-hover shadow-sm align-middle">
+      <thead class="table-primary">
+        <tr>
+          <th>用户名</th>
+          <th>券类型</th>
+          <th>有效期</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for coupon in pending_coupons %}
+        <tr>
+          <td>{{ coupon[1] }}</td>
+          <td>{{ coupon[2] }}</td>
+          <td>{{ coupon[3] }}</td>
+          <td>
+            {% if coupon[4] == "待审核" %}
+              <span class="badge bg-warning text-dark">待审核</span>
+            {% elif coupon[4] == "已失效" %}
+              <span class="badge bg-secondary">已失效</span>
+            {% else %}
+              <span class="badge bg-info">{{ coupon[4] }}</span>
+            {% endif %}
+          </td>
+          <td>
+            <div class="d-flex gap-2">
+              <form method="POST" action="/approve_coupon/{{ coupon[0] }}">
+                <button type="submit" class="btn btn-success btn-sm">✅ 通过</button>
+              </form>
+              <form method="POST" action="/reject_coupon/{{ coupon[0] }}">
+                <button type="submit" class="btn btn-danger btn-sm">❌ 拒绝</button>
+              </form>
+              <form method="POST" action="/restore_coupon/{{ coupon[0] }}">
+                <button type="submit" class="btn btn-secondary btn-sm">🔁 恢复未使用</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-info text-center">当前没有待审核的券 👌</div>
+  {% endif %}
+  
+  <div class="mt-3 text-center">
+    <a href="/" class="btn btn-outline-primary">返回首页</a>
+  </div>
+</div>
+{% endblock %}

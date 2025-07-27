@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3>➕ 添加新券</h3>
+<form method="POST">
+  <div class="mb-3">
+    <label class="form-label">券名称</label>
+    <input type="text" class="form-control" name="type" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">描述</label>
+    <input type="text" class="form-control" name="desc">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">所需积分</label>
+    <input type="number" class="form-control" name="cost" required>
+  </div>
+  <button type="submit" class="btn btn-primary">提交</button>
+  <a href="/shop" class="btn btn-secondary">取消</a>
+</form>
+{% endblock %}

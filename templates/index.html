@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>欢迎回来，{{ username }}！</h2>
+<p>当前积分：<strong>{{ points }}</strong></p>
+<a href="/sign_in" class="btn btn-primary">每日签到（+100积分）</a>
+
+<hr>
+<h3 class="mt-4 mb-3">🎟️ 我的券</h3>
+<div class="row">
+  {% for coupon in coupons %}
+    <div class="col-md-6 col-lg-4">
+      <div class="card mb-4 shadow-sm border-primary">
+        <div class="card-body">
+          <h5 class="card-title">{{ coupon[2] }}</h5>
+          <p class="card-text text-muted">有效期：{{ coupon[4] }}</p>
+
+          {% if coupon[3].strip() == "未使用" %}
+            <form method="POST" action="/use_coupon/{{ coupon[0] }}">
+              <button type="submit" class="btn btn-outline-success w-100">使用</button>
+            </form>
+
+          {% elif coupon[3].strip() == "待审核" %}
+            <button class="btn btn-warning w-100" disabled>待审核</button>
+          {% elif coupon[3].strip() == "已失效" %}
+            <button class="btn btn-secondary w-100" disabled>已失效</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <p class="text-muted">你还没有任何券哦，快去商城兑换吧！</p>
+  {% endfor %}
+</div>
+{% endblock %}

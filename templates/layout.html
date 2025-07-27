@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- ✅ 关键的自适应设置 -->
+  <title>{% block title %}我的积分券系统{% endblock %}</title>
+
+  <!-- ✅ 引入 Bootstrap 样式 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- ✅ 引入你自己的全局样式 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}">
+
+  <!-- ✅ 支持页面注入额外样式 -->
+  {% block extra_css %}{% endblock %}
+
+  <style>
+    .flash-msg { margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="/">券系统</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        {% if session.get('username') %}
+          <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
+          <li class="nav-item"><a class="nav-link" href="/shop">积分商城</a></li>
+          {% if session.get('username') == 'admin' %}
+            <li class="nav-item"><a class="nav-link" href="/admin">后台审核</a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin/create_task">📌 创建任务</a></li>
+            <li class="nav-item"><a class="nav-link" href="/task_review">任务审核</a></li>
+          {% endif %}
+          <li class="nav-item"><a class="nav-link" href="/tasks">🎯 浏览任务</a></li>
+          <li class="nav-item"><a class="nav-link" href="/my_submissions">我的任务</a></li>
+          <li class="nav-item"><a class="nav-link" href="/logout">退出</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="/login">登录</a></li>
+          <li class="nav-item"><a class="nav-link" href="/register">注册</a></li>
+        {% endif %}
+      </ul>
+      {% if session.get('username') %}
+        <span class="navbar-text text-white">你好，{{ session['username'] }}</span>
+      {% endif %}
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="alert alert-{{ 'danger' if category == 'error' else category }} flash-msg">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- ✅ Bootstrap JS（用于导航栏折叠） -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

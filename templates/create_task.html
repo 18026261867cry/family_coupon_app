@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>📌 创建新任务</h2>
+<form method="POST">
+  <div class="form-group mb-3">
+    <label>任务标题</label>
+    <input type="text" name="title" class="form-control" required>
+  </div>
+
+  <div class="form-group mb-3">
+    <label>任务描述</label>
+    <textarea name="description" class="form-control" rows="3"></textarea>
+  </div>
+
+  <div class="form-group mb-3">
+    <label>奖励积分</label>
+    <input type="number" name="reward" class="form-control" required>
+  </div>
+
+  <div class="form-group mb-3">
+    <label>截止日期</label>
+    <input type="date" name="deadline" class="form-control" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">发布任务</button>
+</form>
+{% endblock %}

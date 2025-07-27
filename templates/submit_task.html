@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>提交任务：{{ task[0] }}</h2>
+<p>{{ task[1] }}</p>
+
+<form method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="proof_image" class="form-label">上传截图证明：</label>
+    <input type="file" name="proof_image" class="form-control" accept="image/*" required>
+  </div>
+  <button type="submit" class="btn btn-primary">提交</button>
+</form>
+
+<a href="/tasks" class="btn btn-secondary mt-3">返回任务列表</a>
+{% endblock %}

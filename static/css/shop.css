@@ -1,0 +1,43 @@
+body {
+    background-color: #f5f5f5;
+}
+
+.coupon-card {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    margin-bottom: 25px;
+    padding: 20px;
+    position: relative;
+    transition: transform 0.2s ease-in-out;
+    min-height: 220px;
+}
+
+.coupon-card:hover {
+    transform: translateY(-5px);
+}
+
+.coupon-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.coupon-cost {
+    font-weight: bold;
+    color: #d63384;
+    font-size: 1.1rem;
+}
+
+.admin-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.btn-sm {
+    margin-left: 5px;
+}
+
+button:hover {
+    box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}

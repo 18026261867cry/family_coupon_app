@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>🎯 当前任务</h2>
+
+<table class="table table-striped mt-4">
+  <thead class="table-dark">
+    <tr>
+      <th>任务标题</th>
+      <th>描述</th>
+      <th>积分奖励</th>
+      <th>截止日期</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+      <tr>
+        <td>{{ task[1] }}</td>
+        <td>{{ task[2] }}</td>
+        <td>{{ task[3] }}</td>
+        <td>{{ task[4] }}</td>
+        <td>
+          <form action="/submit_task/{{ task[0] }}" method="GET">
+            <button class="btn btn-primary btn-sm">提交任务</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">暂无任务</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

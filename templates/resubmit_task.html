@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3>🔁 重新提交任务：{{ title }}</h3>
+<p>{{ description }}</p>
+
+<form method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label class="form-label">上传新的截图证明：</label>
+    <input type="file" name="proof_image" accept="image/*" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary">提交</button>
+  <a href="/my_submissions" class="btn btn-secondary">取消</a>
+</form>
+{% endblock %}

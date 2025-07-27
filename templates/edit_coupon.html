@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3>✏️ 编辑券</h3>
+<form method="POST">
+  <div class="mb-3">
+    <label class="form-label">券名称</label>
+    <input type="text" class="form-control" name="type" value="{{ coupon[1] }}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">描述</label>
+    <input type="text" class="form-control" name="desc" value="{{ coupon[2] }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">所需积分</label>
+    <input type="number" class="form-control" name="cost" value="{{ coupon[3] }}" required>
+  </div>
+  <button type="submit" class="btn btn-primary">保存</button>
+  <a href="/shop" class="btn btn-secondary">返回</a>
+</form>
+{% endblock %}

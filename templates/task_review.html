@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3>🧾 任务审核</h3>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>用户</th>
+      <th>任务标题</th>
+      <th>截图</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in submissions %}
+    <tr>
+      <td>{{ s[1] }}</td>
+      <td>{{ s[2] }}</td>
+      <td>
+        <a href="{{ url_for('static', filename='uploads/' + s[3]) }}" target="_blank">查看</a>
+      </td>
+      <td>
+        {% if s[4] == '待审核' %}
+          <span class="badge bg-warning text-dark">待审核</span>
+        {% elif s[4] == '已通过' %}
+          <span class="badge bg-success">已通过</span>
+        {% elif s[4] == '已退回' %}
+          <span class="badge bg-secondary">已退回</span>
+        {% else %}
+          <span class="badge bg-light text-dark">未知状态</span>
+        {% endif %}
+
+      </td>
+      <td>
+        {% if s[4] == '待审核' %}
+          <form method="POST" action="/task_review/{{ s[0] }}/approve" style="display:inline;">
+            <button class="btn btn-sm btn-success">通过</button>
+          </form>
+          <form method="POST" action="/task_review/{{ s[0] }}/return" style="display:inline;">
+            <button class="btn btn-sm btn-warning">退回</button>
+          </form>
+          <form method="POST" action="/task_review/{{ s[0] }}/delete" style="display:inline;"
+                onsubmit="return confirm('确认删除该记录？');">
+            <button class="btn btn-sm btn-outline-danger">删除</button>
+          </form>
+        {% else %}
+          <em>无需操作</em>
+        {% endif %}
+
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
