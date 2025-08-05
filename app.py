@@ -731,8 +731,9 @@ def resubmit_task(submission_id):
 # 第一次运行 app.py 时执行初始化
 init_notifications()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     init_db()
-    app.run(host='0.0.0.0',port=5000,debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 
